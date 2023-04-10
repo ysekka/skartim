@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "database/migration",
+    "database/entity",
+    "skadmin",
+    "passgen",
+    "common",
+    "server"
+]

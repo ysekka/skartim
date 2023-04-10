@@ -1,0 +1,15 @@
+[package]
+name = "passgen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-rt = "2.8.0"
+common = { path = "../common" }
+entity = { path = "../database/entity" }
+env_logger = "0.10.0"
+lettre = { version = "0.10.3" }
+log = "0.4.17"
+rand = "0.8.5"
+ron = "0.8.0"
+sha2 = "0.10.6"
