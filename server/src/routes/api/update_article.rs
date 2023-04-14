@@ -34,10 +34,6 @@ pub async fn update_article(user: aw::web::ReqData<entity::users_table::Model>, 
             active_article.article_visibility = ActiveValue::Set(article_visibility)
         }
 
-        if let Some(article_tags) = query.article_tags {
-            active_article.article_tags = ActiveValue::Set(Some(article_tags))
-        }
-
         let updation = active_article.update(&app_state.database_connection).await.unwrap();
 
         return aw::HttpResponse::Ok().json(updation)

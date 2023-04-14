@@ -48,10 +48,6 @@ impl MigrationTrait for Migration {
                 .boolean()
             )
             .col(
-                ColumnDef::new(ArticlesTable::ArticleTags)
-                .array(ColumnType::String(None))
-            )
-            .col(
                 ColumnDef::new(ArticlesTable::ArticleAuthor)
                 .not_null()
                 .uuid()

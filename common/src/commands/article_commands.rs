@@ -7,7 +7,6 @@ pub struct QueryArticles {
     pub article_content: Option<String>,
     pub article_author: Option<uuid::Uuid>,
     pub article_timestamp: Option<chrono::NaiveDateTime>,
-    pub article_tag: Option<String>,
     pub article_type: Option<soae::ArticleType>,
     pub limit: Option<usize>,
 }
@@ -20,7 +19,6 @@ pub struct QueryArticlesPrivate {
     pub article_author: Option<uuid::Uuid>,
     pub article_timestamp: Option<chrono::NaiveDateTime>,
     pub article_visibility: Option<bool>,
-    pub article_tag: Option<String>,
     pub article_type: Option<soae::ArticleType>,
     pub limit: Option<usize>,
 }
@@ -32,7 +30,6 @@ pub struct CreateArticle {
     pub article_thumbnail: Option<String>,
     pub article_type: soae::ArticleType,
     pub article_visibility: Option<bool>,
-    pub article_tags: Option<Vec<String>>,
 }
 
 #[derive(Clone, serde::Serialize, serde::Deserialize)]
@@ -42,7 +39,6 @@ pub struct UpdateArticle {
     pub article_content: Option<String>,
     pub article_thumbnail: Option<String>,
     pub article_visibility: Option<bool>,
-    pub article_tags: Option<Vec<String>>,
 }
 
 #[derive(Clone, serde::Serialize, serde::Deserialize)]

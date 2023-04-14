@@ -221,7 +221,6 @@ fn main() {
 
                         std::fs::write(file, toml::to_string(&UpdateArticle {
                             article_uuid: uuid::Uuid::from_str(article_uuid).unwrap(),
-                            article_tags: article.article_tags,
                             article_title: Some(article.article_title),
                             article_content: Some(article.article_content),
                             article_thumbnail: article.article_thumbnail,

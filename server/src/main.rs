@@ -1,5 +1,6 @@
 use actix_web_lab as awl;
 use env_logger as el;
+use actix_cors as ac;
 use actix_web as aw;
 
 use entity::sea_orm::Database;
@@ -129,6 +130,7 @@ async fn main() -> std::io::Result<()> {
                 });
             }))
             .wrap(aw::middleware::ErrorHandlers::new().default_handler_client(client_catcher))
+            .wrap(ac::Cors::permissive())
             .configure(configure)
     });
 

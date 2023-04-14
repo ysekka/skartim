@@ -32,7 +32,6 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
                 entity::articles_table::Column::ArticleThumbnail,
                 entity::articles_table::Column::ArticleType,
                 entity::articles_table::Column::ArticleViews,
-                entity::articles_table::Column::ArticleTags,
                 entity::articles_table::Column::ArticleTitle,
                 entity::articles_table::Column::ArticleContent
             ])
@@ -57,7 +56,6 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
                 entity::articles_table::Column::ArticleThumbnail,
                 entity::articles_table::Column::ArticleType,
                 entity::articles_table::Column::ArticleViews,
-                entity::articles_table::Column::ArticleTags,
                 entity::articles_table::Column::ArticleTitle,
                 entity::articles_table::Column::ArticleContent
             ])
@@ -72,10 +70,6 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
 
             if let Some(article_content) = query.article_content {
                 articles_query = articles_query.filter(entity::articles_table::Column::ArticleContent.contains(article_content.as_str()))
-            }
-
-            if let Some(article_tag) = query.article_tag {
-                articles_query = articles_query.filter(entity::articles_table::Column::ArticleTags.contains(article_tag.as_str()))
             }
 
             if let Some(article_author) = query.article_author {
@@ -129,10 +123,6 @@ pub async fn query_articles_private(app_state: aw::web::Data<stcState::AppState>
 
             if let Some(article_content) = query.article_content {
                 articles_query = articles_query.filter(entity::articles_table::Column::ArticleContent.contains(article_content.as_str()))
-            }
-
-            if let Some(article_tag) = query.article_tag {
-                articles_query = articles_query.filter(entity::articles_table::Column::ArticleTags.contains(article_tag.as_str()))
             }
 
             if let Some(article_author) = query.article_author {

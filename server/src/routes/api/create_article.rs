@@ -21,7 +21,6 @@ pub async fn create_article(user: aw::web::ReqData<entity::users_table::Model>, 
         article_author: ActiveValue::Set(user.user_uuid),
         article_content: ActiveValue::Set(query.article_content),
         article_thumbnail: ActiveValue::Set(query.article_thumbnail),
-        article_tags: ActiveValue::Set(query.article_tags),
         article_type: ActiveValue::Set(query.article_type),
         article_timestamp: ActiveValue::NotSet,
         article_visibility: ActiveValue::Set(match query.article_visibility {
