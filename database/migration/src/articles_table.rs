@@ -42,6 +42,10 @@ impl MigrationTrait for Migration {
                 .not_null()
             )
             .col(
+                ColumnDef::new(ArticlesTable::ArticleTags)
+                .array(ColumnType::String(None))
+            )
+            .col(
                 ColumnDef::new(ArticlesTable::ArticleVisibility)
                 .default(true)
                 .not_null()

@@ -26,7 +26,11 @@ pub async fn create_article(user: aw::web::ReqData<entity::users_table::Model>, 
         article_visibility: ActiveValue::Set(match query.article_visibility {
             Some(article_visibility) => article_visibility,
             None => true,
-        })
+        }),
+        article_tags: match query.article_tags {
+            Some(tag_info) => ActiveValue::Set(Some(tag_info.split("|").map(|part| part.trim().to_uppercase().to_owned()).collect::<Vec<String>>())),
+            None => ActiveValue::NotSet
+        }
     };
 
     let new_article = active_article.insert(&app_state.database_connection).await.unwrap();

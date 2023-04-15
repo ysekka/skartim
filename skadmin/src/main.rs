@@ -211,7 +211,7 @@ fn main() {
                         println!("This action is forbidden.");
                     }
                     else if status.is_server_error() || status.is_client_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                     else if status == http::StatusCode::OK {
                         let article_json = sj::Value::from_str(&response.text().unwrap()).unwrap();
@@ -225,6 +225,7 @@ fn main() {
                             article_content: Some(article.article_content),
                             article_thumbnail: article.article_thumbnail,
                             article_visibility: article.article_visibility,
+                            article_tags: article.article_tags
                         })
                         .unwrap_or_else(|error| {
                             log::error!("Error occured during serialization. [{error}]");
@@ -251,7 +252,7 @@ fn main() {
                     .join("api/private/article")
                     .unwrap();
 
-                    let article = toml::from_str::<CreateArticle>(
+                    let article = toml::from_str::<UpdateArticle>(
                         &std::fs::read_to_string(file.as_path())
                         .unwrap_or_else(|error| {
                             log::error!("Error occured during reading file. {error}");
@@ -281,7 +282,7 @@ fn main() {
                         println!("Article not found");
                     }
                     else if status.is_server_error() || status.is_client_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                     else if status == http::StatusCode::OK {
                         println!("The changes has been saved.")
@@ -322,7 +323,7 @@ fn main() {
                         println!("Article not found");
                     }
                     else if status.is_server_error() || status.is_client_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                     else if status == http::StatusCode::OK {
                         println!("The article has been deleted.")
@@ -365,7 +366,7 @@ fn main() {
                         println!("User Email: [{}]", user.get("user_email").unwrap());
                     }
                     else if status.is_server_error() || status.is_client_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                 },
                 enmCommand::UserCommand::Get {
@@ -410,7 +411,7 @@ fn main() {
                         println!("The action is forbidden.")
                     }
                     else if status.is_server_error() || status.is_client_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                 },
                 enmCommand::UserCommand::Create {
@@ -456,7 +457,7 @@ fn main() {
                         println!("The action is fobidden.");
                     }
                     else if status.is_client_error() || status.is_server_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                 },
 
@@ -504,7 +505,7 @@ fn main() {
                         println!("User not found");
                     }
                     else if status.is_client_error() || status.is_server_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                 },
                 enmCommand::UserCommand::Remove {
@@ -545,7 +546,7 @@ fn main() {
                         println!("User not found");
                     }
                     else if status.is_client_error() || status.is_server_error() {
-                        println!("An error has been occured.")
+                        println!("An error has been occured. [status: {}]", status.as_u16())
                     }
                 }
             }

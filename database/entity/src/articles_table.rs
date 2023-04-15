@@ -12,6 +12,7 @@ pub struct Model {
     pub article_thumbnail: Option<String>,
     pub article_type: ArticleType,
     pub article_views: i64,
+    pub article_tags: Option<Vec<String>>,
     pub article_visibility: bool,
     pub article_author: Uuid,
     pub article_title: String,

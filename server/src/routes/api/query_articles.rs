@@ -2,6 +2,7 @@ use actix_web as aw;
 
 use common::commands::article_commands::{QueryArticles, QueryArticlesPrivate};
 use entity::sea_orm::{JoinType, EntityTrait, QuerySelect, QueryFilter, ColumnTrait, RelationTrait, IntoActiveModel, ActiveValue, ActiveModelTrait};
+use migration::{Condition, Expr, Query};
 use crate::state::r#struct as stcState;
 
 pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query: aw::web::Query<QueryArticles>) -> Option<impl aw::Responder> {
@@ -33,7 +34,8 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
                 entity::articles_table::Column::ArticleType,
                 entity::articles_table::Column::ArticleViews,
                 entity::articles_table::Column::ArticleTitle,
-                entity::articles_table::Column::ArticleContent
+                entity::articles_table::Column::ArticleContent,
+                entity::articles_table::Column::ArticleTags,
             ])
             .columns([
                 entity::users_table::Column::UserRealname,
@@ -57,7 +59,8 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
                 entity::articles_table::Column::ArticleType,
                 entity::articles_table::Column::ArticleViews,
                 entity::articles_table::Column::ArticleTitle,
-                entity::articles_table::Column::ArticleContent
+                entity::articles_table::Column::ArticleContent,
+                entity::articles_table::Column::ArticleTags,
             ])
             .columns([
                 entity::users_table::Column::UserRealname,
@@ -78,6 +81,11 @@ pub async fn query_articles(app_state: aw::web::Data<stcState::AppState>, query:
 
             if let Some(article_timestamp) = query.article_timestamp {
                 articles_query = articles_query.filter(entity::articles_table::Column::ArticleTimestamp.eq(article_timestamp))
+            }
+
+            // !SEAORM, GO F*CK YOURSELF
+            if let Some(article_tag) = query.article_tag {
+                articles_query = articles_query.filter(Expr::cust(format!("'{}' = ANY(article_tags)", article_tag).as_str()))
             }
 
             if let Some(limit) = query.limit {
@@ -135,6 +143,10 @@ pub async fn query_articles_private(app_state: aw::web::Data<stcState::AppState>
             
             if let Some(article_visibility) = query.article_visibility {
                 articles_query = articles_query.filter(entity::articles_table::Column::ArticleVisibility.eq(article_visibility))
+            }
+
+            if let Some(article_tag) = query.article_tag {
+                articles_query = articles_query.filter(entity::articles_table::Column::ArticleTags.contains(&article_tag))
             }
 
             if let Some(limit) = query.limit {

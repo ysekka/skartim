@@ -20,7 +20,7 @@ async fn main() -> std::io::Result<()> {
     use common::settings::r#struct as stcSettings;
     use migration::MigratorTrait;
 
-    el::init_from_env(el::Env::default().default_filter_or("TRACE"));
+    el::init_from_env(el::Env::default().default_filter_or("INFO"));
     common::paths::initialization::init();
 
     log::info!("Reading settings file.");
