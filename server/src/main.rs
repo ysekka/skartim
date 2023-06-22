@@ -94,7 +94,7 @@ async fn main() -> std::io::Result<()> {
 
         aw::App::new()
             .app_data(aw::web::Data::new(app_state.clone()))
-            .app_data(aw::web::PayloadConfig::new(2147483648 /* 2 GIGABYTE */))
+            .app_data(aw::web::PayloadConfig::new(2147483648 /* 2 GIGABYTES */))
             .wrap(awl::middleware::PanicReporter::new(move |_| {
                 let mut hasher = sha2::Sha256::new();
                 hasher.update(rand::random::<usize>().to_string());
